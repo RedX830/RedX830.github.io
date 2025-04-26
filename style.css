@@ -1,0 +1,214 @@
+/* Apply box-sizing globally */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Times New Roman', Times, serif;
+    /* Flexbox centering is fine */
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Align to top might be better */
+    min-height: 100vh;
+    margin: 0;
+    padding: 10px; /* Add some padding to body */
+    background-color: white;
+    color: black;
+    line-height: 1.6; /* Improve readability */
+}
+
+h1 {
+    margin: 0 0 15px 0; /* Add bottom margin */
+    font-size: 2em; /* Adjust size */
+}
+
+.container {
+    text-align: center;
+    padding: 15px; /* Adjust padding */
+    border-radius: 10px;
+    /* Prevent container from becoming too wide, allow shrinking */
+    width: 100%;
+    max-width: 1000px; /* Max width on large screens */
+    /* No need for margin: 0 auto if body is flex centering */
+}
+
+#results {
+    text-align: center;
+    margin-bottom: 20px; /* Add spacing */
+}
+
+#results p {
+    /* Use Flexbox for results layout */
+    display: flex;
+    flex-wrap: wrap; /* Allow items to wrap */
+    justify-content: center; /* Center items */
+    gap: 10px 25px; /* Row gap, Column gap */
+    margin: 0; /* Remove default p margin */
+    padding: 0;
+}
+
+#results p span {
+    /* Remove fixed margins, rely on flex gap */
+    display: inline-block; /* Keep spans inline-block */
+    /* Add min-width if needed to prevent weird wrapping */
+    /* min-width: 120px; */
+}
+
+.canvas-container {
+    border: 1px solid #ccc;
+    /* Let it take full width of its parent */
+    width: 100%;
+    max-width: 950px; /* Optional: Limit max canvas width */
+    margin: 0 auto 20px auto; /* Center and add bottom margin */
+    position: relative;
+     /* Maintain aspect ratio (480/950 = ~0.505) - Optional but often desired */
+    /* padding-top: 50.5%;  /* Use padding-top hack OR handle in JS */
+    height: 0; /* Required for padding-top trick */
+    padding-top: 50.52%; /* 480 / 950 * 100% */
+    overflow: hidden; /* Hide overflow if using padding trick */
+
+}
+
+#myCanvas {
+    /* Make canvas fill its container */
+    display: block; /* Remove extra space below */
+    /* If using padding-top trick for aspect ratio: */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* If NOT using padding-top trick, use these instead: */
+    /* width: 100%; */
+    /* height: auto; */ /* JS will set the height */
+}
+
+
+.controls {
+    margin: 20px 0;
+    /* Use Flexbox for controls layout */
+    display: flex;
+    flex-wrap: wrap; /* Allow items to wrap onto new lines */
+    justify-content: center; /* Center items */
+    align-items: center; /* Align items vertically */
+    gap: 15px; /* Spacing between control items */
+}
+
+/* Style individual control groups */
+.control-item {
+    display: flex;
+    flex-direction: column; /* Stack label above input on small screens */
+    align-items: center; /* Center label/input */
+    gap: 5px; /* Space between label and input */
+}
+
+.controls label {
+    /* Remove fixed margins */
+    margin: 0;
+    font-weight: bold;
+}
+
+.controls input[type="number"] {
+    /* Remove fixed margins */
+    margin: 0;
+    padding: 5px 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    max-width: 80px; /* Prevent inputs from getting too wide */
+    text-align: center;
+}
+
+.controls button {
+    padding: 8px 15px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.controls button:hover {
+    background-color: #0056b3;
+}
+
+.logo {
+    max-width: 120px; /* Slightly smaller logo */
+    height: auto; /* Maintain aspect ratio */
+    display: block;
+    margin: 0 auto 15px; /* Center and add margin below */
+}
+
+body.dark-mode {
+    background-color: #333; /* Darker background */
+    color: #eee; /* Lighter text */
+}
+body.dark-mode .container {
+    /* No specific background needed if body is dark */
+}
+body.dark-mode .canvas-container {
+    border: 1px solid #555; /* Darker border */
+}
+body.dark-mode .controls input[type="number"] {
+    background-color: #555;
+    color: #eee;
+    border: 1px solid #777;
+}
+body.dark-mode .controls button {
+    background-color: #555;
+    color: #eee;
+    border: 1px solid #777;
+}
+body.dark-mode .controls button:hover {
+    background-color: #777;
+}
+body.dark-mode #myCanvas {
+    /* Optional: adjust canvas colors in dark mode if needed */
+}
+
+/* Media Query for smaller screens (e.g., phones) */
+@media (max-width: 600px) {
+    body {
+        padding: 5px; /* Less padding */
+        align-items: flex-start; /* Align container to top */
+    }
+
+    .container {
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 1.6em; /* Smaller heading */
+    }
+
+    #results p {
+        gap: 8px 15px; /* Adjust gap */
+        font-size: 0.9em; /* Smaller results text */
+    }
+
+    /* Ensure controls stack nicely if needed */
+    .controls {
+        gap: 10px;
+    }
+
+    .control-item {
+        /* Already stacking, maybe adjust width */
+        /* width: 100%; */ /* Uncomment if you want each item full width */
+        /* align-items: stretch; */ /* Uncomment for full width inputs */
+    }
+
+    .controls input[type="number"] {
+         /* max-width: 70px; */ /* Slightly smaller inputs */
+    }
+
+    .controls button {
+        padding: 10px 18px; /* Larger tap target */
+        width: 100%; /* Make button full width for easier tapping */
+        max-width: 250px; /* But not excessively wide */
+        margin-top: 10px; /* Add space above button if needed */
+    }
+
+    .logo {
+        max-width: 100px;
+    }
+}
